@@ -19,3 +19,11 @@ select distinct belnr from
       where row_count > 1 ;
       
 ----------------------------------------------
+// alternatively you can use count() function
+
+SELECT ITEM_NUMBER, ROW_COUNT FROM 
+  (SELECT SEGMENT1 AS ITEM_NUMBER, count(1) AS ROW_COUNT FROM Item_table -- WHERE
+         GROUP BY SEGMENT1
+   ) WHERE ROW_COUNT > 1 ;
+   
+ -----------------------
