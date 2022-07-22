@@ -36,3 +36,15 @@ select vendor_id, address_seq_num, row_count from
   (select vendor_id, address_seq_num, count(1) as row_count from Vendor_master
          group by vendor_id, address_seq_num
    ) where row_count > 1 ;
+   
+ ------------------------
+ 
+ // this logic can be used while you using Join data data result
+ 
+  select belnr, row_count from
+ (
+ select H.BELNR, COUNT(1) as row_count from BKPF H LEFT JOIN BSEG I ON H.BELNR = I.BELNR AND H.GJAHR = I.GJAHR AND H.BUKRS = I.BUKRS
+                         WHERE H.TCODE  IN  ('MIRO','MRIS','MRRL')  AND I.KOART = 'K' AND I.GJAHR = '2021' AND i.BUKRS = '1000' AND I.BELNR IS NOT NULL
+     group by H.belnr
+                         
+  ) where row_count = 1 ; 
